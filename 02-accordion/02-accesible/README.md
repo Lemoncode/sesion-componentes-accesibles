@@ -9,17 +9,24 @@ import { cx } from '@emotion/css';
 import React from 'react';
 import * as classes from './component.styles';
 
-export const Component: React.FC = (props) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+interface Props {
+  title: string;
+  body: string;
+  isOpen: boolean;
+  onClick: () => void;
+}
+
+export const Accordion: React.FC<Props> = (props) => {
+  const { title, body, isOpen, onClick } = props;
 
   return (
     <div className={cx(classes.root, { open: isOpen })}>
 -     <p
 +     <button
         className={cx(classes.title, { open: isOpen })}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onClick}
       >
-        <span>Expande este acordeon para más información</span>
+        <span>{title}</span>
         <i className={cx('material-icons', classes.icon, { open: isOpen })}>
           keyboard_arrow_down
         </i>
@@ -27,7 +34,7 @@ export const Component: React.FC = (props) => {
 +     </button>
       {isOpen && (
         <div className={cx(classes.body, { open: isOpen })}>
-          <p>Este acordeon no es nada accesible</p>
+          <p>{body}</p>
         </div>
       )}
     </div>
@@ -64,7 +71,7 @@ export const title = css`
 ...
 ```
 
-Ahora utilizamos las propiedades `aria` para describir el estado del acordeón (expandido o colapsado):
+Ahora utilizamos las propiedades `aria-expanded` para describir el estado del acordeón (expandido o colapsado):
 
 _./src/component.tsx_
 
@@ -73,24 +80,31 @@ import { cx } from '@emotion/css';
 import React from 'react';
 import * as classes from './component.styles';
 
-export const Component: React.FC = (props) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+interface Props {
+  title: string;
+  body: string;
+  isOpen: boolean;
+  onClick: () => void;
+}
+
+export const Accordion: React.FC<Props> = (props) => {
+  const { title, body, isOpen, onClick } = props;
 
   return (
     <div className={cx(classes.root, { open: isOpen })}>
       <button
         className={cx(classes.title, { open: isOpen })}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onClick}
 +       aria-expanded={isOpen}
       >
-        <span>Expande este acordeon para más información</span>
+        <span>{title}</span>
         <i className={cx('material-icons', classes.icon, { open: isOpen })}>
           keyboard_arrow_down
         </i>
       </button>
       {isOpen && (
         <div className={cx(classes.body, { open: isOpen })}>
-          <p>Este acordeon no es nada accesible</p>
+          <p>{body}</p>
         </div>
       )}
     </div>
@@ -110,37 +124,82 @@ import { cx } from '@emotion/css';
 import React from 'react';
 import * as classes from './component.styles';
 
-export const Component: React.FC = (props) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+interface Props {
+  title: string;
+  body: string;
+  isOpen: boolean;
+  onClick: () => void;
++ id: string;
+}
+
+export const Accordion: React.FC<Props> = (props) => {
+  const { title, body, isOpen, onClick } = props;
++ const { title, body, isOpen, onClick, id } = props;
 
   return (
     <div className={cx(classes.root, { open: isOpen })}>
       <button
         className={cx(classes.title, { open: isOpen })}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onClick}
         aria-expanded={isOpen}
-+       id="title"
-+       aria-controls="body"
++       id={`title-${id}`}
++       aria-controls={`body-${id}`}
       >
-        <span>Expande este acordeon para más información</span>
+        <span>{title}</span>
         <i className={cx('material-icons', classes.icon, { open: isOpen })}>
           keyboard_arrow_down
         </i>
       </button>
       {isOpen && (
         <div
-+         id="body"
++         id={`body-${id}`}
 +         role="region"
-+         aria-labelledby="title"
++         aria-labelledby={`title-${id}`}
           className={cx(classes.body, { open: isOpen })}
         >
-          <p>Este acordeon no es nada accesible</p>
+          <p>{body}</p>
         </div>
       )}
     </div>
   );
 };
 
+```
+
+_./src/index.tsx_
+
+```diff
+...
+
+      <Accordion
+        title="Máster Front End"
+        body="Hoy en día trabajamos con multitud de dispositivos y navegadores, las exigencias de una interfaz de usuario web son muy altas. El área de Front End está evolucionando a pasos agigantados, convirtiéndose en el sector estrella en el mundo del desarrollo."
+        isOpen={accordionOpen['master-frontend']}
+        onClick={handleClick('master-frontend')}
++       id="master-frontend"
+      />
+      <Accordion
+        title="Bootcamp Backend"
+        body="¿Te has planteado alguna vez hacerte desarrollador Backend? En este Bootcamp aprenderás a desarrollar un backend de principio a fin, desde la fase de toma de requerimientos, modelado y definición de base de datos y API, así como su desarrollo, manejo de ORMs, testing y por último como llevarlo a producción desplegándolo en la nube."
+        isOpen={accordionOpen['bootcamp-backend']}
+        onClick={handleClick('bootcamp-backend')}
++       id="bootcamp-backend"
+      />
+      <Accordion
+        title="Bootcamp Devops"
+        body="La automatización de procesos ha pasado de ser una funcionalidad deseable a una necesidad indispensable. Hoy en día esperamos que nuestras aplicaciones liberen nuevas funcionalidades sin apenas interrupción del servicio…"
+        isOpen={accordionOpen['bootcamp-devops']}
+        onClick={handleClick('bootcamp-devops')}
++       id="bootcamp-devops"
+      />
+      <Accordion
+        title="Bootcamp JavaScript"
+        body="Aprende a programar desde cero. Si eres diseñador y siempre te ha picado meterte o entender bien lo que se hace con JavaScript, o si llevas tiempo alejado de la programación y tienes ganas de reengancharte, sigue leyendo…"
+        isOpen={accordionOpen['bootcamp-javascript']}
+        onClick={handleClick('bootcamp-javascript')}
++       id="bootcamp-javascript"
+      />
+...
 ```
 
 Por último, para que no esté todo el rato nombrando el nombre del icono podemos "ocultarlo":
@@ -152,19 +211,28 @@ import { cx } from '@emotion/css';
 import React from 'react';
 import * as classes from './component.styles';
 
-export const Component: React.FC = (props) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+interface Props {
+  title: string;
+  body: string;
+  isOpen: boolean;
+  onClick: () => void;
+  id: string;
+}
+
+export const Accordion: React.FC<Props> = (props) => {
+  const { title, body, isOpen, onClick } = props;
+  const { title, body, isOpen, onClick, id } = props;
 
   return (
     <div className={cx(classes.root, { open: isOpen })}>
       <button
         className={cx(classes.title, { open: isOpen })}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onClick}
         aria-expanded={isOpen}
-        id="title"
-        aria-controls="body"
+        id={`title-${id}`}
+        aria-controls={`body-${id}`}
       >
-        <span>Expande este acordeon para más información</span>
+        <span>{title}</span>
         <i
 +         aria-hidden="true"
           className={cx('material-icons', classes.icon, { open: isOpen })}
@@ -174,12 +242,12 @@ export const Component: React.FC = (props) => {
       </button>
       {isOpen && (
         <div
-          id="body"
+          id={`body-${id}`}
           role="region"
-          aria-labelledby="title"
+          aria-labelledby={`title-${id}`}
           className={cx(classes.body, { open: isOpen })}
         >
-          <p>Este acordeon no es nada accesible</p>
+          <p>{body}</p>
         </div>
       )}
     </div>

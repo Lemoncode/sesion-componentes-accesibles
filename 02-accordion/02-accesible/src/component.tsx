@@ -1,20 +1,28 @@
-import { cx } from '@emotion/css';
 import React from 'react';
+import { cx } from '@emotion/css';
 import * as classes from './component.styles';
 
-export const Component: React.FC = (props) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+interface Props {
+  title: string;
+  body: string;
+  isOpen: boolean;
+  onClick: () => void;
+  id: string;
+}
+
+export const Accordion: React.FC<Props> = (props) => {
+  const { title, body, isOpen, onClick, id } = props;
 
   return (
     <div className={cx(classes.root, { open: isOpen })}>
       <button
         className={cx(classes.title, { open: isOpen })}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onClick}
         aria-expanded={isOpen}
-        id="title"
-        aria-controls="body"
+        id={`title-${id}`}
+        aria-controls={`body-${id}`}
       >
-        <span>Expande este acordeon para más información</span>
+        <span>{title}</span>
         <i
           aria-hidden="true"
           className={cx('material-icons', classes.icon, { open: isOpen })}
@@ -24,12 +32,12 @@ export const Component: React.FC = (props) => {
       </button>
       {isOpen && (
         <div
-          id="body"
+          id={`body-${id}`}
           role="region"
-          aria-labelledby="title"
+          aria-labelledby={`title-${id}`}
           className={cx(classes.body, { open: isOpen })}
         >
-          <p>Este acordeon si es accesible</p>
+          <p>{body}</p>
         </div>
       )}
     </div>

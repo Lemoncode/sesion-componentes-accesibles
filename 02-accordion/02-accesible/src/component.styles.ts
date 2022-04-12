@@ -26,6 +26,10 @@ export const title = css`
 
   cursor: pointer;
   user-select: none;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  width: 100%;
 
   &.open {
     padding-bottom: 1rem;

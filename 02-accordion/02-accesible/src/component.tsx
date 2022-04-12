@@ -7,18 +7,29 @@ export const Component: React.FC = (props) => {
 
   return (
     <div className={cx(classes.root, { open: isOpen })}>
-      <p
+      <button
         className={cx(classes.title, { open: isOpen })}
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        id="title"
+        aria-controls="body"
       >
         <span>Expande este acordeon para más información</span>
-        <i className={cx('material-icons', classes.icon, { open: isOpen })}>
+        <i
+          aria-hidden="true"
+          className={cx('material-icons', classes.icon, { open: isOpen })}
+        >
           keyboard_arrow_down
         </i>
-      </p>
+      </button>
       {isOpen && (
-        <div className={cx(classes.body, { open: isOpen })}>
-          <p>Este acordeon no es nada accesible</p>
+        <div
+          id="body"
+          role="region"
+          aria-labelledby="title"
+          className={cx(classes.body, { open: isOpen })}
+        >
+          <p>Este acordeon si es accesible</p>
         </div>
       )}
     </div>

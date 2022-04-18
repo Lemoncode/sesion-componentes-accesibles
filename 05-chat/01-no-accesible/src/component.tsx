@@ -1,5 +1,4 @@
 import React from 'react';
-import { cx } from '@emotion/css';
 import { useChat } from './chat.hooks';
 import * as classes from './component.styles';
 
@@ -23,7 +22,7 @@ export const Chat: React.FC = (props) => {
       />
       {isConnected && (
         <>
-          <div className={classes.form}>
+          <div className={classes.fieldContainer}>
             <label>Message</label>
             <input
               value={message}
@@ -31,7 +30,7 @@ export const Chat: React.FC = (props) => {
             />
             <button onClick={handleSendMessage}>Send</button>
           </div>
-          <div className={cx(classes.form, classes.chatlog)}>
+          <div className={classes.chatlog}>
             <label>ChatLog</label>
             <textarea className={classes.chatlog} value={chatlog} readOnly />
           </div>
@@ -57,7 +56,7 @@ const Nickname: React.FC<NicknameProps> = (props) => {
           Nickname: <strong>{nickname}</strong>
         </label>
       ) : (
-        <div className={classes.form}>
+        <div className={classes.fieldContainer}>
           <label>Nickname</label>
           <input value={nickname} onChange={(e) => onChange(e.target.value)} />
           <button onClick={onJoin}>Join</button>

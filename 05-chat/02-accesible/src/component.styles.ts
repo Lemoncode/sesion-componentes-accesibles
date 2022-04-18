@@ -1,5 +1,14 @@
 import { css } from '@emotion/css';
 
+export const screenReaderOnly = css`
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+`;
+
 export const root = css`
   display: flex;
   flex-direction: column;
@@ -8,10 +17,13 @@ export const root = css`
 `;
 
 export const fieldContainer = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
+  fieldset {
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
 
   & label {
     flex-basis: 15%;

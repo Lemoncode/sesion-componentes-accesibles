@@ -1,43 +1,49 @@
 import { css } from '@emotion/css';
 
+export const globalTooltipClasses = {
+  tooltip: 'Tooltip-tooltip',
+};
+
 export const root = css`
-  width: 100%;
-  max-width: 500px;
-  box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
-    rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
-
+  position: relative;
   cursor: pointer;
-  &.open {
-    cursor: default;
-  }
 
-  & > :nth-child(n) {
-    padding: 1rem;
-  }
-`;
-
-export const title = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-
-  cursor: pointer;
-  user-select: none;
-
-  &.open {
-    padding-bottom: 1rem;
+  &:hover {
+    .${globalTooltipClasses.tooltip} {
+      visibility: visible;
+    }
   }
 `;
 
-export const icon = css`
-  transition: transform 0.3s;
-  &.open {
-    transform: rotate(180deg);
-  }
-`;
+interface Props {
+  rootWidth: number
+}
 
-export const body = css`
-  background-color: white;
+export const tooltip = (props: Props) => css`
+  cursor: default;
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+
+  top: 8px;
+  left: 10px;
+  transform: translate(${props.rootWidth}px, -50%);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #555 transparent transparent;
+  }
 `;

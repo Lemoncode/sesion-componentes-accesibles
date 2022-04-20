@@ -1,7 +1,7 @@
 import React from 'react';
 import { cx } from '@emotion/css';
-import * as classes from './component.styles';
 import { useElementWidth } from './component.hooks';
+import * as classes from './component.styles';
 
 interface Props {
   title: string;

@@ -3,14 +3,11 @@ import { cx } from '@emotion/css';
 import * as classes from './component.styles';
 
 interface Props {
-  title: string;
-  body: string;
-  isOpen: boolean;
-  onClick: () => void;
+  isIcon: boolean;
 }
 
-export const Accordion: React.FC<Props> = (props) => {
-  const { title, body, isOpen, onClick } = props;
+export const Tooltip: React.FunctionComponent<Props> = (props) => {
+  const { isIcon, children } = props;
 
   return (
     <div className={cx(classes.root, { open: isOpen })}>

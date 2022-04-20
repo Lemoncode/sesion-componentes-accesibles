@@ -15,11 +15,11 @@ export const root = css`
   }
 `;
 
-interface Props {
+interface TooltipProps {
   rootWidth: number
 }
 
-export const tooltip = (props: Props) => css`
+export const tooltip = (props: TooltipProps) => css`
   cursor: default;
   visibility: hidden;
   width: 200px;

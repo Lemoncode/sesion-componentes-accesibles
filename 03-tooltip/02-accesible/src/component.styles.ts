@@ -2,24 +2,25 @@ import { css } from '@emotion/css';
 
 export const globalTooltipClasses = {
   tooltip: 'Tooltip-tooltip',
+  open: 'Tooltip-open',
 };
 
 export const root = css`
   position: relative;
   cursor: pointer;
 
-  &:hover {
+  &:hover, &.${globalTooltipClasses.open} {
     .${globalTooltipClasses.tooltip} {
       visibility: visible;
     }
   }
 `;
 
-interface Props {
+interface TooltipProps {
   rootWidth: number
 }
 
-export const tooltip = (props: Props) => css`
+export const tooltip = (props: TooltipProps) => css`
   cursor: default;
   visibility: hidden;
   width: 200px;

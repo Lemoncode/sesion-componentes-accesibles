@@ -11,7 +11,7 @@ const App: React.FC = () => {
           help_outline
         </i>
       </Tooltip>
-      <Tooltip title="Para más información visita lemoncode.net">
+      <Tooltip title="Y para vídeos cortos lemoncode.tv">
         <span style={{ borderBottom: '1px solid black' }}>Más información</span>
       </Tooltip>
     </>

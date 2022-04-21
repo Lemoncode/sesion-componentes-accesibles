@@ -4,9 +4,7 @@ import { useMenu } from './component.hooks';
 import logo from './lemoncode-logo.svg';
 import * as classes from './component.styles';
 
-interface Props {}
-
-export const Menu: React.FC<Props> = (props) => {
+export const Menu: React.FC = () => {
   const { menuRef, isOpen, setIsOpen } = useMenu();
 
   return (

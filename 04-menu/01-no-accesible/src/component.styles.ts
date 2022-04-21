@@ -14,6 +14,7 @@ export const root = css`
 `;
 
 export const logo = css`
+  cursor: pointer;
   width: 100%;
   max-width: 64px;
 `;

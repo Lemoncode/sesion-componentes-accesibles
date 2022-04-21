@@ -8,14 +8,20 @@ export const Menu: React.FC = () => {
   const { menuRef, isOpen, setIsOpen } = useMenu();
 
   return (
-    <div className={cx(classes.root)}>
-      <img className={classes.logo} src={logo} />
+    <div className={classes.root}>
+      <a>
+        <img className={classes.logo} src={logo} />
+      </a>
       <button className={classes.menuButton} onClick={() => setIsOpen(true)}>
         <i className="material-icons">menu</i>
       </button>
       <ul ref={menuRef} className={cx(classes.menu, { open: isOpen })}>
-        <li>User profile</li>
-        <li>Logout</li>
+        <li>
+          <a>User profile</a>
+        </li>
+        <li>
+          <a>Logout</a>
+        </li>
       </ul>
     </div>
   );

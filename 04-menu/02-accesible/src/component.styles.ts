@@ -1,10 +1,6 @@
 import { css } from '@emotion/css';
 
 export const root = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   position: relative;
   width: 100%;
   max-width: 900px;
@@ -13,7 +9,16 @@ export const root = css`
   padding: 1rem;
 `;
 
+export const menubar = css`
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const logo = css`
+  cursor: pointer;
   width: 100%;
   max-width: 64px;
 `;
@@ -29,8 +34,9 @@ export const menuButton = css`
   background-color: transparent;
 `;
 
-export const menu = css`
-  display: none;
+export const submenu = css`
+  opacity: 0;
+  z-index: -1;
   position: absolute;
   top: 0;
   right: 0;
@@ -43,8 +49,10 @@ export const menu = css`
     rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
 
   &.open {
-    display: flex;
+    opacity: 1;
+    z-index: 0;
   }
+  display: flex;
   flex-direction: column;
   gap: 0rem;
   padding-top: 8px;

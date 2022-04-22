@@ -13,18 +13,24 @@ interface Props {
 export const Checkbox: React.FC<Props> = (props) => {
   const { label, value, onChange } = props;
   return (
-    <label className={classes.root}>
+    <label htmlFor="checkbox-id" className={classes.root}>
       {label}
       <span>
         <input
-          className={classes.input}
+          id="checkbox-id"
+          className={cx(classes.screenReaderOnly, classes.input)}
           type="checkbox"
           checked={value}
           onChange={() => {
             onChange(!value);
           }}
         />
-        <span className={classes.imageContainer}>
+        <span
+          aria-hidden="true"
+          className={cx(classes.imageContainer, {
+            checked: value,
+          })}
+        >
           {value ? (
             <img className={classes.image} src={checked} />
           ) : (

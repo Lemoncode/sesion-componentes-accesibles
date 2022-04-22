@@ -9,8 +9,22 @@ export const root = css`
   user-select: none;
 `;
 
+export const screenReaderOnly = css`
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+`;
+
 export const input = css`
-  display: none;
+  &:focus + span {
+    border: 1px solid #262626;
+  }
+  &:focus + span:not(.checked) {
+    border: 1px solid #493ba7;
+  }
 `;
 
 export const imageContainer = css`

@@ -17,7 +17,7 @@ module.exports = {
   },
   devServer: {
     host: 'localhost',
-    port: 8082,
+    port: 8052,
     // Reference: https://github.com/webpack/webpack-dev-server/issues/283#issuecomment-162163329
     proxy: {
       '/chat/*': {

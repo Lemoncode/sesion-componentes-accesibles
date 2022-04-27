@@ -17,7 +17,7 @@ module.exports = {
   },
   devServer: {
     host: 'localhost',
-    port: 8081,
+    port: 8011,
   },
   module: {
     rules: [

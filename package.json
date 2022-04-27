@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "cd backend && npm ci",
     "start": "run-p -l type-check:watch start:dev start:backend",
-    "start:dev": "webpack serve",
+    "start:dev": "webpack serve --open",
     "start:backend": "cd backend && npm start",
     "type-check:watch": "tsc --noEmit --watch"
   },

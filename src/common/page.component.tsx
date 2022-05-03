@@ -24,21 +24,20 @@ export const Page: React.FC<Props> = (props) => {
         </header>
         <main>
           <h3>
-            <span tabIndex={0} aria-label="Sección componente no accesible" />
-            {nonAccessibleComponent}
+            <span aria-label="Componente no accesible" />
           </h3>
+          {nonAccessibleComponent}
           <h3>
-            <span tabIndex={0} aria-label="Sección componente accesible" />
-            {accessibleComponent}
+            <span aria-label="Componente accesible" />
           </h3>
+          {accessibleComponent}
           {muiComponent && (
+            <div>
             <h3>
-              <span
-                tabIndex={0}
-                aria-label="Sección componente con material-ui"
-              />
-              {muiComponent}
+              <span aria-label="componente con material-ui" />
             </h3>
+            {muiComponent}
+            </div>
           )}
         </main>
       </div>

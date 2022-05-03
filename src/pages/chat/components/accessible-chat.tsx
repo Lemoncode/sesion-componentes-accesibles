@@ -40,17 +40,16 @@ export const AccessibleChat: React.FC = (props) => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
-              <button type="submit">Send</button>
+              <button type="submit">Enviar</button>
             </fieldset>
           </form>
           <div className={classes.chatlog} role="log">
-            <label htmlFor="chatlog">ChatLog</label>
-            <textarea
-              id="chatlog"
-              className={classes.chatlog}
-              value={chatlog}
-              readOnly
-            />
+            <div id="chatlog"
+              className={classes.chatlog}>
+              <ul>
+                {chatlog.map(message => <li>{message}</li>)}
+              </ul>
+            </div>
           </div>
         </>
       )}
@@ -71,7 +70,7 @@ const Nickname: React.FC<NicknameProps> = (props) => {
     <>
       {isConnected ? (
         <label>
-          Nickname: <strong>{nickname}</strong>
+          Alias: <strong>{nickname}</strong>
         </label>
       ) : (
         <form
@@ -84,15 +83,16 @@ const Nickname: React.FC<NicknameProps> = (props) => {
         >
           <fieldset>
             <legend className={classes.screenReaderOnly} id="choose-nickname">
-              Choose nickname
+              Elige tu alias
             </legend>
-            <label htmlFor="nickname">Nickname</label>
+            <label htmlFor="nickname">Alias</label>
             <input
               id="nickname"
               value={nickname}
+              required
               onChange={(e) => onChange(e.target.value)}
             />
-            <button type="submit">Join</button>
+            <button type="submit">¡A ligar!</button>
           </fieldset>
         </form>
       )}

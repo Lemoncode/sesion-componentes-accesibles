@@ -15,10 +15,11 @@ export const Navbar: React.FC = (props) => {
     <AppBar color="default" position="static">
       <Toolbar
         role="navigation"
+        aria-labelledby="hExamplesNavBar"
         className={classes.toolbar}
       >
-        <h2 className={commonClasses.screenReaderOnly}>
-          Barra navegación de los ejemplos
+        <h2 id="hExamplesNavBar" className={commonClasses.screenReaderOnly}>
+          ejemplos
         </h2>
         <ul className={classes.list}>
           <li>

@@ -23,16 +23,19 @@ export const NonAccessibleChat: React.FC = (props) => {
       {isConnected && (
         <>
           <div className={classes.fieldContainer}>
-            <label>Message</label>
+            <label>Mensaje</label>
             <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button onClick={handleSendMessage}>Send</button>
+            <button onClick={handleSendMessage}>Enviar</button>
           </div>
           <div className={classes.chatlog}>
-            <label>ChatLog</label>
-            <textarea className={classes.chatlog} value={chatlog} readOnly />
+            <ul>
+              {chatlog.map((message) => (
+                <li>{message}</li>
+              ))}
+            </ul>
           </div>
         </>
       )}
@@ -53,13 +56,13 @@ const Nickname: React.FC<NicknameProps> = (props) => {
     <>
       {isConnected ? (
         <label>
-          Nickname: <strong>{nickname}</strong>
+          Alias: <strong>{nickname}</strong>
         </label>
       ) : (
         <div className={classes.fieldContainer}>
-          <label>Nickname</label>
+          <label>Alias</label>
           <input value={nickname} onChange={(e) => onChange(e.target.value)} />
-          <button onClick={onJoin}>Join</button>
+          <button onClick={onJoin}>¡A ligar!</button>
         </div>
       )}
     </>

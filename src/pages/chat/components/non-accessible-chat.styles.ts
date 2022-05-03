@@ -27,7 +27,7 @@ export const fieldContainer = css`
     box-sizing: border-box;
     padding: 5px 15px;
     width: 100%;
-    min-width: 64px;
+    min-width: 128px;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.75;
@@ -44,9 +44,12 @@ export const chatlog = css`
   gap: 1rem;
   width: 100%;
 
-  & textarea {
-    resize: none;
+  & ul {
+    width: 100%;
+    list-style: none;
     height: 400px;
     padding: 1rem;
+    border: 1px solid black;
+    overflow: auto;
   }
 `;

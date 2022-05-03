@@ -22,8 +22,6 @@ export const useChat = (nickname: string) => {
               (chatlog) =>
                 [...chatlog, `[${body.payload.nickname}]: ${body.payload.message}`]
             );
-            console.log("Y aquí el chat log:");
-            console.log(chatlog);
             break;
         }
       }
@@ -37,7 +35,7 @@ export const useChat = (nickname: string) => {
   };
 
   const onSendMessage = (message: string) => {
-    setChatlog(chatlog => [...chatlog, message ]);
+    setChatlog(chatlog => [...chatlog, `[${nickname}]: ${message}` ]);
     socket.emit('message', {
       type: 'CHAT_MESSAGE',
       payload: { message },

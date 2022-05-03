@@ -15,7 +15,7 @@ export const root = css`
     padding-right: 1rem;
     padding-bottom: 1rem;
 
-    & > :nth-child(n) {
+    & > :nth-child(even) {
       flex-grow: 1;
       flex-basis: calc(100% / 3);
       display: flex;

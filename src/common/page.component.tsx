@@ -23,21 +23,21 @@ export const Page: React.FC<Props> = (props) => {
           <Navbar />
         </header>
         <main>
-          <h3>
+          <h3 className={commonClasses.screenReaderOnly}>
             <span aria-label="Componente no accesible" />
           </h3>
-          {nonAccessibleComponent}
-          <h3>
+          <span>{nonAccessibleComponent}</span>
+          <h3 className={commonClasses.screenReaderOnly}>
             <span aria-label="Componente accesible" />
           </h3>
-          {accessibleComponent}
+          <span>{accessibleComponent}</span>
           {muiComponent && (
-            <div>
-            <h3>
-              <span aria-label="componente con material-ui" />
-            </h3>
-            {muiComponent}
-            </div>
+            <>
+              <h3 className={commonClasses.screenReaderOnly}>
+                <span aria-label="componente con material-ui" />
+              </h3>
+              <span>{muiComponent}</span>
+            </>
           )}
         </main>
       </div>

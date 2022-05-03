@@ -32,9 +32,9 @@ export const AccessibleChat: React.FC = (props) => {
           >
             <fieldset>
               <legend className={classes.screenReaderOnly} id="send-message">
-                Send message
+                Enviar mensaje
               </legend>
-              <label htmlFor="message">Message</label>
+              <label htmlFor="message">Mensaje</label>
               <input
                 id="message"
                 value={message}
@@ -44,12 +44,11 @@ export const AccessibleChat: React.FC = (props) => {
             </fieldset>
           </form>
           <div className={classes.chatlog} role="log">
-            <div id="chatlog"
-              className={classes.chatlog}>
-              <ul>
-                {chatlog.map(message => <li>{message}</li>)}
-              </ul>
-            </div>
+            <ul>
+              {chatlog.map((message) => (
+                <li>{message}</li>
+              ))}
+            </ul>
           </div>
         </>
       )}

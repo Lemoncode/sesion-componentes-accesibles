@@ -1,32 +1,55 @@
 import React from 'react';
 
-const useRovingTabindex = (ref: React.MutableRefObject<any>) => {
+const useRovingTabindex = (
+  ref: React.MutableRefObject<any>,
+  options: { isVisible: boolean }
+) => {
+  const { isVisible } = options;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const focusableElements = React.useRef<HTMLElement[]>([]);
+
+  const onRemoveFocus = () => {
+    focusableElements.current.forEach((element) => {
+      element.setAttribute('tabIndex', '-1');
+    });
+  };
 
   React.useEffect(() => {
     if (ref.current) {
       focusableElements.current = [...ref.current.childNodes].flatMap(
         (child) => child.firstChild as HTMLElement
       );
-      focusableElements.current.forEach((element, index) => {
-        if (index === activeIndex) {
-          element.setAttribute('tabIndex', '0');
-        } else {
-          element.setAttribute('tabIndex', '-1');
-        }
-      });
+      if (isVisible) {
+        focusableElements.current.forEach((element, index) => {
+          if (index === activeIndex) {
+            element.setAttribute('tabIndex', '0');
+          } else {
+            element.setAttribute('tabIndex', '-1');
+          }
+        });
+      } else {
+        onRemoveFocus();
+      }
     }
   }, [ref]);
+
+  const onSetFocusToElement = (element: HTMLElement) => {
+    onRemoveFocus();
+    element.setAttribute('tabIndex', '0');
+    element.focus();
+  };
 
   return {
     activeIndex,
     setActiveIndex,
     focusableElements,
+    onSetFocusToElement,
+    onRemoveFocus,
   };
 };
 
 interface MenuProps {
+  menuRef: React.MutableRefObject<HTMLUListElement>;
   isOpenSubmenu: boolean;
   onOpenSubmenu: (
     submenuIndex: number,
@@ -35,25 +58,30 @@ interface MenuProps {
 }
 
 export const useMenu = (props: MenuProps) => {
-  const { isOpenSubmenu, onOpenSubmenu } = props;
-  const menuRef = React.useRef<HTMLUListElement>(null);
-  const { activeIndex, setActiveIndex, focusableElements } =
-    useRovingTabindex(menuRef);
+  const { menuRef, isOpenSubmenu, onOpenSubmenu } = props;
+  const {
+    activeIndex,
+    setActiveIndex,
+    focusableElements,
+    onSetFocusToElement,
+  } = useRovingTabindex(menuRef, { isVisible: true });
 
   const handleKeydown = (event: globalThis.KeyboardEvent) => {
     switch (event.key) {
       case 'ArrowRight':
         const nextIndex = (activeIndex + 1) % focusableElements.current.length;
-        focusableElements.current[nextIndex].focus();
+        onSetFocusToElement(focusableElements.current[nextIndex]);
         setActiveIndex(nextIndex);
         break;
       case 'ArrowLeft':
         const previousIndex =
           Math.abs(activeIndex - 1) % focusableElements.current.length;
-        focusableElements.current[previousIndex].focus();
+        onSetFocusToElement(focusableElements.current[previousIndex]);
         setActiveIndex(previousIndex);
         break;
       case 'ArrowDown':
+      case 'Enter':
+      case ' ':
         onOpenSubmenu(activeIndex, 'first');
         break;
       case 'ArrowUp':
@@ -70,10 +98,10 @@ export const useMenu = (props: MenuProps) => {
 
   React.useEffect(() => {
     if (menuRef.current) {
-      document.addEventListener('keydown', handleKeydown);
+      menuRef.current.addEventListener('keydown', handleKeydown);
     }
     return () => {
-      document.removeEventListener('keydown', handleKeydown);
+      menuRef.current.removeEventListener('keydown', handleKeydown);
     };
   }, [menuRef, activeIndex]);
 
@@ -107,23 +135,34 @@ const useOutsideElement = (props: OutsideElementProps) => {
   }, [ref]);
 };
 
-export const useSubmenu = () => {
-  const submenuRef = React.useRef<HTMLUListElement>(null);
+interface SubmenuProps {
+  menuRef: React.MutableRefObject<HTMLUListElement>;
+  submenuRef: React.MutableRefObject<HTMLUListElement>;
+}
+
+export const useSubmenu = (props: SubmenuProps) => {
+  const { menuRef, submenuRef } = props;
   const [isOpen, setIsOpen] = React.useState(false);
-  const { activeIndex, setActiveIndex, focusableElements } =
-    useRovingTabindex(submenuRef);
+  const {
+    activeIndex,
+    setActiveIndex,
+    focusableElements,
+    onSetFocusToElement,
+    onRemoveFocus,
+  } = useRovingTabindex(submenuRef, { isVisible: isOpen });
 
   const handleSetIsOpen = (
     value: boolean,
     focusedElement?: 'first' | 'last'
   ) => {
+    console.log('SetIsOpen');
     if (value) {
       if (focusedElement === 'first') {
-        focusableElements.current[0].focus();
+        onSetFocusToElement(focusableElements.current[0]);
         setActiveIndex(0);
       } else if (focusedElement === 'last') {
         const lastIndex = focusableElements.current.length - 1;
-        focusableElements.current[lastIndex].focus();
+        onSetFocusToElement(focusableElements.current[lastIndex]);
         setActiveIndex(lastIndex);
       }
     } else {
@@ -143,13 +182,13 @@ export const useSubmenu = () => {
     switch (event.key) {
       case 'ArrowDown':
         const nextIndex = (activeIndex + 1) % focusableElements.current.length;
-        focusableElements.current[nextIndex].focus();
+        onSetFocusToElement(focusableElements.current[nextIndex]);
         setActiveIndex(nextIndex);
         break;
       case 'ArrowUp':
         const previousIndex =
           Math.abs(activeIndex - 1) % focusableElements.current.length;
-        focusableElements.current[previousIndex].focus();
+        onSetFocusToElement(focusableElements.current[previousIndex]);
         setActiveIndex(previousIndex);
         break;
       case 'ArrowRight':
@@ -159,6 +198,7 @@ export const useSubmenu = () => {
         handleSetIsOpen(false);
         break;
       case 'Escape':
+        onSetFocusToElement(focusableElements.current[0]);
         setActiveIndex(0);
         handleSetIsOpen(false);
         break;
@@ -166,13 +206,17 @@ export const useSubmenu = () => {
   };
 
   React.useEffect(() => {
-    if (submenuRef.current) {
-      document.addEventListener('keydown', handleKeydown);
+    if (menuRef.current && isOpen) {
+      menuRef.current.addEventListener('keydown', handleKeydown);
+    } else {
+      onRemoveFocus();
+      menuRef.current.removeEventListener('keydown', handleKeydown);
     }
     return () => {
-      document.removeEventListener('keydown', handleKeydown);
+      onRemoveFocus();
+      menuRef.current.removeEventListener('keydown', handleKeydown);
     };
-  }, [submenuRef, activeIndex]);
+  }, [menuRef, isOpen, activeIndex]);
 
   return {
     submenuRef,

@@ -5,8 +5,11 @@ import logo from '../../../assets/lemoncode-logo.svg';
 import * as classes from './accessible-menu.styles';
 
 export const AccessibleMenu: React.FC = () => {
-  const { submenuRef, isOpen, setIsOpen } = useSubmenu();
-  const { menuRef } = useMenu({
+  const menuRef = React.useRef<HTMLUListElement>(null);
+  const submenuRef = React.useRef<HTMLUListElement>(null);
+  const { isOpen, setIsOpen } = useSubmenu({ menuRef, submenuRef });
+  useMenu({
+    menuRef,
     isOpenSubmenu: isOpen,
     onOpenSubmenu: (submenuIndex, focusedElement) => {
       if (submenuIndex === 1) {

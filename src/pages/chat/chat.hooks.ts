@@ -5,7 +5,7 @@ import { joinChat } from './chat.api';
 export const useChat = (nickname: string) => {
   const [socket, setSocket] = React.useState<Socket>(null);
   const [isConnected, setIsConnected] = React.useState(false);
-  const [chatlog, setChatlog] = React.useState('');
+  const [chatlog, setChatlog] = React.useState([]);
 
   const establishConnection = () => {
     const chatConnection = joinChat(nickname);
@@ -20,8 +20,10 @@ export const useChat = (nickname: string) => {
           case 'CHAT_MESSAGE':
             setChatlog(
               (chatlog) =>
-                `${chatlog}[${body.payload.nickname}]: ${body.payload.message}\n`
+                [...chatlog, `[${body.payload.nickname}]: ${body.payload.message}`]
             );
+            console.log("Y aquí el chat log:");
+            console.log(chatlog);
             break;
         }
       }
@@ -35,7 +37,7 @@ export const useChat = (nickname: string) => {
   };
 
   const onSendMessage = (message: string) => {
-    setChatlog(`${chatlog}[${nickname}]: ${message}\n`);
+    setChatlog(chatlog => [...chatlog, message ]);
     socket.emit('message', {
       type: 'CHAT_MESSAGE',
       payload: { message },

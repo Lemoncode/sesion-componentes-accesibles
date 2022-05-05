@@ -44,7 +44,7 @@ export const AccessibleMenu: React.FC = () => {
             <li>
               <a>User profile</a>
             </li>
-            <li role="none">
+            <li>
               <a>Logout</a>
             </li>
           </ul>

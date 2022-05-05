@@ -16,6 +16,16 @@ export const menubar = css`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  & button {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border: none;
+    background-color: transparent;
+  }
 `;
 
 export const logo = css`

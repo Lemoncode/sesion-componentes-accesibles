@@ -10,7 +10,6 @@ export const AccessibleMenu: React.FC = () => {
   const { isOpen, setIsOpen } = useSubmenu({ menuRef, submenuRef });
   useMenu({
     menuRef,
-    isOpenSubmenu: isOpen,
     onOpenSubmenu: (submenuIndex, focusedElement) => {
       if (submenuIndex === 1) {
         setIsOpen(true, focusedElement);
@@ -20,18 +19,15 @@ export const AccessibleMenu: React.FC = () => {
 
   return (
     <nav aria-label="Lemoncode" className={classes.root}>
-      <ul ref={menuRef} className={classes.menubar} role="menubar">
-        <li role="none">
-          <a role="menuitem" aria-label="Home">
+      <ul ref={menuRef} className={classes.menubar}>
+        <li>
+          <button aria-label="Home">
             <img className={classes.logo} src={logo} />
-          </a>
+          </button>
         </li>
-        <li role="none">
+        <li>
           <button
-            tabIndex={-1}
-            role="menuitem"
             aria-label="User settings"
-            aria-haspopup="true"
             aria-expanded={isOpen}
             aria-controls="user-settings-submenu"
             className={classes.menuButton}
@@ -42,15 +38,14 @@ export const AccessibleMenu: React.FC = () => {
           <ul
             id="user-settings-submenu"
             aria-label="User settings"
-            role="menu"
             ref={submenuRef}
             className={cx(classes.submenu, { open: isOpen })}
           >
-            <li role="none">
-              <a role="menuitem">User profile</a>
+            <li>
+              <a>User profile</a>
             </li>
             <li role="none">
-              <a role="menuitem">Logout</a>
+              <a>Logout</a>
             </li>
           </ul>
         </li>

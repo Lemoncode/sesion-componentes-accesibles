@@ -50,7 +50,6 @@ const useRovingTabindex = (
 
 interface MenuProps {
   menuRef: React.MutableRefObject<HTMLUListElement>;
-  isOpenSubmenu: boolean;
   onOpenSubmenu: (
     submenuIndex: number,
     focusedElement: 'first' | 'last'
@@ -58,7 +57,7 @@ interface MenuProps {
 }
 
 export const useMenu = (props: MenuProps) => {
-  const { menuRef, isOpenSubmenu, onOpenSubmenu } = props;
+  const { menuRef, onOpenSubmenu } = props;
   const {
     activeIndex,
     setActiveIndex,
@@ -92,24 +91,12 @@ export const useMenu = (props: MenuProps) => {
 
   React.useEffect(() => {
     if (menuRef.current) {
-      focusableElements.current[0].focus();
-    }
-  }, [menuRef]);
-
-  React.useEffect(() => {
-    if (menuRef.current) {
       menuRef.current.addEventListener('keydown', handleKeydown);
     }
     return () => {
       menuRef.current?.removeEventListener('keydown', handleKeydown);
     };
   }, [menuRef, activeIndex]);
-
-  React.useEffect(() => {
-    if (!isOpenSubmenu) {
-      focusableElements.current[activeIndex].focus();
-    }
-  }, [isOpenSubmenu]);
 
   return { menuRef };
 };
@@ -155,7 +142,6 @@ export const useSubmenu = (props: SubmenuProps) => {
     value: boolean,
     focusedElement?: 'first' | 'last'
   ) => {
-    console.log('SetIsOpen');
     if (value) {
       if (focusedElement === 'first') {
         onSetFocusToElement(focusableElements.current[0]);

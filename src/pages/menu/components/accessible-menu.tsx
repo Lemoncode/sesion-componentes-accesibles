@@ -31,7 +31,7 @@ export const AccessibleMenu: React.FC = () => {
             aria-expanded={isOpen}
             aria-controls="user-settings-submenu"
             className={classes.menuButton}
-            onClick={() => setIsOpen(true)}
+            onClick={() => setIsOpen(!isOpen)}
           >
             <i className="material-icons">menu</i>
           </button>
@@ -43,10 +43,10 @@ export const AccessibleMenu: React.FC = () => {
             aria-hidden={!isOpen}
           >
             <li>
-              <a>User profile</a>
+              <a href="#/menu">User profile</a>
             </li>
             <li>
-              <a>Logout</a>
+              <a href="#/menu">Logout</a>
             </li>
           </ul>
         </li>

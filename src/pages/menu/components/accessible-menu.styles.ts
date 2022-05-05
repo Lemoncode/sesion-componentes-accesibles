@@ -72,9 +72,12 @@ export const submenu = css`
   & > :nth-child(n) {
     padding: 8px 16px;
     cursor: pointer;
-
     &:hover {
       background-color: rgba(0, 0, 0, 0.04);
+    }
+    & > a {
+      color: black;
+      text-decoration: none;
     }
   }
 `;

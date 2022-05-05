@@ -4,16 +4,11 @@ import logo from '../../../assets/lemoncode-logo.svg';
 import * as classes from './accessible-menu.styles';
 
 export const AccessibleMenu: React.FC = () => {
-  const menuRef = React.useRef<HTMLUListElement>(null);
-  const submenuRef = React.useRef<HTMLUListElement>(null);
-  const { isOpen, setIsOpen } = useSubmenu({ submenuRef });
-  useMenu({
-    menuRef,
-    onOpenSubmenu: (submenuIndex) => {
-      if (submenuIndex === 1) {
-        setIsOpen(true);
-      }
-    },
+  const [isOpen, setIsOpen] = React.useState(false);
+  const { menuRef } = useMenu();
+  const { submenuRef } = useSubmenu({
+    isOpen,
+    onToggle: () => setIsOpen(!isOpen),
   });
 
   return (
@@ -31,13 +26,7 @@ export const AccessibleMenu: React.FC = () => {
             aria-controls="user-settings-submenu"
             className={classes.menuButton}
             onClick={() => {
-              console.log({isOpen})
               setIsOpen(!isOpen);
-            }}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                setIsOpen(!isOpen);
-              }
             }}
           >
             <i className="material-icons">menu</i>

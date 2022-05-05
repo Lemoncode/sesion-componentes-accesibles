@@ -50,13 +50,8 @@ const useRovingTabindex = (
   };
 };
 
-interface MenuProps {
-  menuRef: React.MutableRefObject<HTMLUListElement>;
-  onOpenSubmenu: (submenuIndex: number) => void;
-}
-
-export const useMenu = (props: MenuProps) => {
-  const { menuRef, onOpenSubmenu } = props;
+export const useMenu = () => {
+  const menuRef = React.useRef<HTMLUListElement>(null);
   const {
     activeIndex,
     setActiveIndex,
@@ -76,13 +71,6 @@ export const useMenu = (props: MenuProps) => {
           Math.abs(activeIndex - 1) % focusableElements.current.length;
         onSetFocusToElement(focusableElements.current[previousIndex]);
         setActiveIndex(previousIndex);
-        break;
-      case 'Enter':
-      case ' ':
-        onOpenSubmenu(activeIndex);
-        break;
-      case 'ArrowUp':
-        onOpenSubmenu(activeIndex);
         break;
     }
   };
@@ -121,24 +109,23 @@ const useOutsideElement = (props: OutsideElementProps) => {
 };
 
 interface SubmenuProps {
-  submenuRef: React.MutableRefObject<HTMLUListElement>;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 export const useSubmenu = (props: SubmenuProps) => {
-  const { submenuRef } = props;
-  const [isOpen, setIsOpen] = React.useState(false);
+  const { isOpen, onToggle } = props;
+  const submenuRef = React.useRef<HTMLUListElement>(null);
 
   useOutsideElement({
     ref: submenuRef,
-    onClickOutside: () => {
-      setIsOpen(false);
-    },
+    onClickOutside: onToggle,
   });
 
   const handleKeydown = (event: globalThis.KeyboardEvent) => {
     switch (event.key) {
       case 'Escape':
-        setIsOpen(false);
+        onToggle();
         break;
     }
   };
@@ -154,7 +141,5 @@ export const useSubmenu = (props: SubmenuProps) => {
 
   return {
     submenuRef,
-    isOpen,
-    setIsOpen,
   };
 };

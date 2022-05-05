@@ -46,8 +46,6 @@ export const menuButton = css`
 `;
 
 export const submenu = css`
-  opacity: 0;
-  z-index: -1;
   position: absolute;
   top: 0;
   right: 0;
@@ -59,10 +57,6 @@ export const submenu = css`
   box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px,
     rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
 
-  &.open {
-    opacity: 1;
-    z-index: 0;
-  }
   display: flex;
   flex-direction: column;
   gap: 0rem;

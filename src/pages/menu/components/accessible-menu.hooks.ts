@@ -101,7 +101,7 @@ export const useMenu = (props: MenuProps) => {
       menuRef.current.addEventListener('keydown', handleKeydown);
     }
     return () => {
-      menuRef.current.removeEventListener('keydown', handleKeydown);
+      menuRef.current?.removeEventListener('keydown', handleKeydown);
     };
   }, [menuRef, activeIndex]);
 
@@ -206,15 +206,17 @@ export const useSubmenu = (props: SubmenuProps) => {
   };
 
   React.useEffect(() => {
-    if (menuRef.current && isOpen) {
-      menuRef.current.addEventListener('keydown', handleKeydown);
-    } else {
-      onRemoveFocus();
-      menuRef.current.removeEventListener('keydown', handleKeydown);
+    if (menuRef.current) {
+      if (isOpen) {
+        menuRef.current.addEventListener('keydown', handleKeydown);
+      } else {
+        onRemoveFocus();
+        menuRef.current.removeEventListener('keydown', handleKeydown);
+      }
     }
     return () => {
       onRemoveFocus();
-      menuRef.current.removeEventListener('keydown', handleKeydown);
+      menuRef.current?.removeEventListener('keydown', handleKeydown);
     };
   }, [menuRef, isOpen, activeIndex]);
 

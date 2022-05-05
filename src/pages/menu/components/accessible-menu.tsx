@@ -40,6 +40,7 @@ export const AccessibleMenu: React.FC = () => {
             aria-label="User settings"
             ref={submenuRef}
             className={cx(classes.submenu, { open: isOpen })}
+            aria-hidden={!isOpen}
           >
             <li>
               <a>User profile</a>

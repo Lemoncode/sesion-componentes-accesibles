@@ -20,6 +20,7 @@ export const AccordionPage: React.FC = () => {
 
   return (
     <Page
+      exampleTitle='Accordion'
       nonAccessibleComponent={
         <>
           <NonAccessibleAccordion

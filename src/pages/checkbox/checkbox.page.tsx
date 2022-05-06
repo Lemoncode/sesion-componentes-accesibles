@@ -16,6 +16,7 @@ export const CheckboxPage: React.FC = () => {
 
   return (
     <Page
+      exampleTitle='checkboxes'
       nonAccessibleComponent={
         <form className={classes.root} onSubmit={nonAccessible.onSubmit}>
           <NonAccessibleCheckbox

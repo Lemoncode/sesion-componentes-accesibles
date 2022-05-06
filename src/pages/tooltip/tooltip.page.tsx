@@ -70,8 +70,17 @@ export const TooltipPage: React.FC = () => {
               </IconButton>
             </MuiTooltip>
           </div>
-          <MuiTooltip title="Formato español: 8 números y una letra">
-            <TextField id="mui-tooltip" label="DNI" />
+          <MuiTooltip
+            title="Formato español: 8 números y una letra"
+            id="input-mui-tooltip"
+          >
+            <TextField
+              id="mui-tooltip"
+              label="DNI"
+              inputProps={{
+                'aria-describedby': 'input-mui-tooltip',
+              }}
+            />
           </MuiTooltip>
         </>
       }

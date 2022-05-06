@@ -7,6 +7,7 @@ import { NonAccessibleTooltip, AccessibleTooltip, MuiTooltip } from './component
 export const TooltipPage: React.FC = () => {
   return (
     <Page
+      exampleTitle="tooltips"
       nonAccessibleComponent={
         <>
           <NonAccessibleTooltip title="Para más información visita lemoncode.net">

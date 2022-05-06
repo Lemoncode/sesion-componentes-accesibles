@@ -5,6 +5,7 @@ import { NonAccessibleChat, AccessibleChat } from './components';
 export const ChatPage: React.FC = () => {
   return (
     <Page
+      exampleTitle="chat"
       nonAccessibleComponent={<NonAccessibleChat />}
       accessibleComponent={<AccessibleChat />}
     />

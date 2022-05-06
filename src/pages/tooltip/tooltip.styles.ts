@@ -1,5 +1,12 @@
 import { css } from '@emotion/css';
 
+export const personalData = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
 export const field = css`
   display: flex;
   flex-direction: row;

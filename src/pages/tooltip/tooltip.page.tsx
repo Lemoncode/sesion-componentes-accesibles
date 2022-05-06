@@ -15,11 +15,14 @@ export const TooltipPage: React.FC = () => {
       exampleTitle="tooltips"
       nonAccessibleComponent={
         <>
-          <NonAccessibleTooltip title="Para más información visita lemoncode.net">
-            <i style={{ width: 24 }} className="material-icons">
-              help_outline
-            </i>
-          </NonAccessibleTooltip>
+          <div className={classes.personalData}>
+            <p>Datos personales</p>
+            <NonAccessibleTooltip title="Los necesitamos para emitir la factura">
+              <i style={{ width: 24 }} className="material-icons">
+                help_outline
+              </i>
+            </NonAccessibleTooltip>
+          </div>
           <NonAccessibleTooltip title="Formato español: 8 números y una letra">
             <div className={classes.field}>
               <label htmlFor="no-accessible-tooltip">DNI</label>
@@ -30,30 +33,43 @@ export const TooltipPage: React.FC = () => {
       }
       accessibleComponent={
         <>
-          <AccessibleTooltip title="Para más información visita lemoncode.net">
-            <i
-              aria-hidden={true}
-              style={{ width: 24 }}
-              className="material-icons"
-            >
-              help_outline
-            </i>
-          </AccessibleTooltip>
-          <AccessibleTooltip title="Formato español: 8 números y una letra">
+          <div className={classes.personalData}>
+            <p>Datos personales</p>
+            <AccessibleTooltip title="Los necesitamos para emitir la factura">
+              <i
+                aria-hidden={true}
+                style={{ width: 24 }}
+                className="material-icons"
+              >
+                help_outline
+              </i>
+            </AccessibleTooltip>
+          </div>
+          <AccessibleTooltip
+            title="Formato español: 8 números y una letra"
+            id="input-tooltip"
+          >
             <div className={classes.field}>
               <label htmlFor="accessible-tooltip">DNI</label>
-              <input id="accessible-tooltip" type="text" />
+              <input
+                id="accessible-tooltip"
+                aria-describedby="input-tooltip"
+                type="text"
+              />
             </div>
           </AccessibleTooltip>
         </>
       }
       muiComponent={
         <>
-          <MuiTooltip title="Para más información visita lemoncode.net">
-            <IconButton>
-              <HelpIcon />
-            </IconButton>
-          </MuiTooltip>
+          <div className={classes.personalData}>
+            <p>Datos personales</p>
+            <MuiTooltip title="Los necesitamos para emitir la factura">
+              <IconButton>
+                <HelpIcon />
+              </IconButton>
+            </MuiTooltip>
+          </div>
           <MuiTooltip title="Formato español: 8 números y una letra">
             <TextField id="mui-tooltip" label="DNI" />
           </MuiTooltip>

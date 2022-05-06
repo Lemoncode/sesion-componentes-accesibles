@@ -5,10 +5,11 @@ import * as classes from './accessible-tooltip.styles';
 
 interface Props {
   title: string;
+  id?: string;
 }
 
 export const AccessibleTooltip: React.FC<Props> = (props) => {
-  const { title, children } = props;
+  const { title, id, children } = props;
   const { elementRef, elementWidth } = useElementWidth<HTMLDivElement>();
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -26,8 +27,6 @@ export const AccessibleTooltip: React.FC<Props> = (props) => {
     setIsOpen(false);
   };
 
-  const tooltipId = `tooltip-${title.replace(' ', '-')}`;
-
   return (
     <div
       ref={elementRef}
@@ -39,13 +38,9 @@ export const AccessibleTooltip: React.FC<Props> = (props) => {
       onFocus={handleFocus}
       onBlur={handleBlur}
     >
-      <span>
-        {React.Children.map(children, (child: React.ReactElement) =>
-          React.cloneElement(child, { 'aria-describedby': tooltipId })
-        )}
-      </span>
+      <span>{children}</span>
       <div
-        id={tooltipId}
+        id={id}
         role="tooltip"
         className={cx(
           classes.tooltip({ rootWidth: elementWidth }),

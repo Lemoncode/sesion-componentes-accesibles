@@ -2,7 +2,11 @@ import React from 'react';
 import { IconButton, Typography } from '@mui/material';
 import HelpIcon from '@mui/icons-material/HelpOutline';
 import { Page } from '../../common';
-import { NonAccessibleTooltip, AccessibleTooltip, MuiTooltip } from './components';
+import {
+  NonAccessibleTooltip,
+  AccessibleTooltip,
+  MuiTooltip,
+} from './components';
 
 export const TooltipPage: React.FC = () => {
   return (
@@ -25,7 +29,11 @@ export const TooltipPage: React.FC = () => {
       accessibleComponent={
         <>
           <AccessibleTooltip title="Para más información visita lemoncode.net">
-            <i style={{ width: 24 }} className="material-icons">
+            <i
+              aria-hidden={true}
+              style={{ width: 24 }}
+              className="material-icons"
+            >
               help_outline
             </i>
           </AccessibleTooltip>

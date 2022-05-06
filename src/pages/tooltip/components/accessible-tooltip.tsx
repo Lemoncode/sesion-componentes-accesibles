@@ -37,7 +37,7 @@ export const AccessibleTooltip: React.FC<Props> = (props) => {
       onFocus={handleFocus}
       onBlur={handleBlur}
     >
-      <span aria-hidden={true}>{children}</span>
+      <span>{children}</span>
       <div
         role="tooltip"
         className={cx(

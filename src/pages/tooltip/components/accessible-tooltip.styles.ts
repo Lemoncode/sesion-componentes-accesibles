@@ -11,7 +11,7 @@ export const root = css`
 
   &:hover, &.${globalTooltipClasses.open} {
     .${globalTooltipClasses.tooltip} {
-      visibility: visible;
+      opacity: 1;
     }
   }
 `;
@@ -22,7 +22,7 @@ interface TooltipProps {
 
 export const tooltip = (props: TooltipProps) => css`
   cursor: default;
-  visibility: hidden;
+  opacity: 0;
   width: 200px;
   background-color: #555;
   color: #fff;

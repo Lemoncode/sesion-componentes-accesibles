@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEventHandler } from 'react';
 import { useSubmenu, useMenu } from './accessible-menu.hooks';
 import logo from '../../../assets/lemoncode-logo.svg';
 import * as classes from './accessible-menu.styles';
@@ -6,10 +6,18 @@ import * as classes from './accessible-menu.styles';
 export const AccessibleMenu: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const { menuRef } = useMenu();
+  const handleClose = React.useCallback(() => setIsOpen(false), []);
   const { submenuRef } = useSubmenu({
-    isOpen,
-    onToggle: () => setIsOpen(!isOpen),
+    onClose: handleClose,
   });
+
+  const handleKeydown = (event: React.KeyboardEvent<HTMLUListElement>) => {
+    switch (event.key) {
+      case 'Escape':
+        setIsOpen(false);
+        break;
+    }
+  };
 
   return (
     <nav aria-label="Lemoncode" className={classes.root}>
@@ -26,7 +34,8 @@ export const AccessibleMenu: React.FC = () => {
             aria-controls="user-settings-submenu"
             className={classes.menuButton}
             onClick={() => {
-              setIsOpen(!isOpen);
+              console.log({ isOpen });
+              setIsOpen(isOpen);
             }}
           >
             <i className="material-icons">menu</i>
@@ -37,6 +46,7 @@ export const AccessibleMenu: React.FC = () => {
               aria-label="User settings"
               ref={submenuRef}
               className={classes.submenu}
+              onKeyDown={handleKeydown}
             >
               <li>
                 <a href="#/menu">User profile</a>

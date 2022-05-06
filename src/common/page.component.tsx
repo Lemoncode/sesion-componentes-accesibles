@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledEngineProvider } from '@mui/material';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 import { Navbar } from './navbar.component';
 import * as commonClasses from './common.styles';
 import * as classes from './page.styles';
@@ -13,12 +13,16 @@ interface Props {
 }
 
 export const Page: React.FC<Props> = (props) => {
-  const { exampleTitle, nonAccessibleComponent, accessibleComponent, muiComponent } = props;
+  const {
+    exampleTitle,
+    nonAccessibleComponent,
+    accessibleComponent,
+    muiComponent,
+  } = props;
   const focusHeading = React.useRef<HTMLHeadingElement>();
-  
+
   React.useEffect(() => {
     if (focusHeading.current) {
-      console.log("¡vamos a focalizar!");
       focusHeading.current.focus();
     }
   }, [focusHeading]);
@@ -36,14 +40,26 @@ export const Page: React.FC<Props> = (props) => {
           <Navbar />
         </header>
         <main>
-          <h2 tabIndex={-1}  ref={focusHeading}>Ejemplos de {exampleTitle}</h2>
-          <h3 className={commonClasses.screenReaderOnly}>Componente no accesible</h3>
+          <h2
+            className={commonClasses.screenReaderOnly}
+            tabIndex={-1}
+            ref={focusHeading}
+          >
+            Ejemplos de {exampleTitle}
+          </h2>
+          <h3 className={commonClasses.screenReaderOnly}>
+            Componente no accesible
+          </h3>
           <span>{nonAccessibleComponent}</span>
-          <h3 className={commonClasses.screenReaderOnly}>Componente accesible</h3>
+          <h3 className={commonClasses.screenReaderOnly}>
+            Componente accesible
+          </h3>
           <span>{accessibleComponent}</span>
           {muiComponent && (
             <>
-              <h3 className={commonClasses.screenReaderOnly}>componente con material-ui"</h3>
+              <h3 className={commonClasses.screenReaderOnly}>
+                componente con material-ui"
+              </h3>
               <span>{muiComponent}</span>
             </>
           )}

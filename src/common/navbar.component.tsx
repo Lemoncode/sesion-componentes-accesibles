@@ -16,7 +16,6 @@ export const Navbar: React.FC = (props) => {
       <Toolbar
         role="navigation"
         aria-labelledby="hExamplesNavBar"
-        className={classes.toolbar}
       >
         <h2 id="hExamplesNavBar" className={commonClasses.screenReaderOnly}>
           ejemplos

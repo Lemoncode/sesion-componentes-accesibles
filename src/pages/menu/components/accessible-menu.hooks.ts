@@ -92,7 +92,7 @@ interface OutsideElementProps {
   onClickOutside: () => void;
 }
 
-export const useOutsideElement = (props: OutsideElementProps) => {
+const useOutsideElement = (props: OutsideElementProps) => {
   const { ref, onClickOutside } = props;
 
   React.useEffect(() => {
@@ -105,5 +105,41 @@ export const useOutsideElement = (props: OutsideElementProps) => {
     return () => {
       document.removeEventListener('mousedown', handleClickInside);
     };
-  }, [ref.current, onClickOutside]);
+  }, [ref.current]);
+};
+
+interface SubmenuProps {
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+export const useSubmenu = (props: SubmenuProps) => {
+  const { isOpen, onToggle } = props;
+  const submenuRef = React.useRef<HTMLUListElement>(null);
+
+  useOutsideElement({
+    ref: submenuRef,
+    onClickOutside: onToggle,
+  });
+
+  const handleKeydown = (event: globalThis.KeyboardEvent) => {
+    switch (event.key) {
+      case 'Escape':
+        onToggle();
+        break;
+    }
+  };
+
+  React.useEffect(() => {
+    if (submenuRef.current && isOpen) {
+      submenuRef.current.addEventListener('keydown', handleKeydown);
+    }
+    return () => {
+      submenuRef.current?.removeEventListener('keydown', handleKeydown);
+    };
+  }, [submenuRef.current, isOpen]);
+
+  return {
+    submenuRef,
+  };
 };

@@ -41,7 +41,7 @@ export const AccessibleTooltip: React.FC<Props> = (props) => {
     >
       <span>
         {React.Children.map(children, (child: React.ReactElement) =>
-          React.cloneElement(child, { 'aria-describedby': { tooltipId } })
+          React.cloneElement(child, { 'aria-describedby': tooltipId })
         )}
       </span>
       <div

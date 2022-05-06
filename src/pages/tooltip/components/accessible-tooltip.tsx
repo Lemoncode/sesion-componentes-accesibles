@@ -26,6 +26,8 @@ export const AccessibleTooltip: React.FC<Props> = (props) => {
     setIsOpen(false);
   };
 
+  const tooltipId = `tooltip-${title.replace(' ', '-')}`;
+
   return (
     <div
       ref={elementRef}
@@ -37,8 +39,9 @@ export const AccessibleTooltip: React.FC<Props> = (props) => {
       onFocus={handleFocus}
       onBlur={handleBlur}
     >
-      <span>{children}</span>
+      <span aria-describedby={tooltipId}>{children}</span>
       <div
+        id={tooltipId}
         role="tooltip"
         className={cx(
           classes.tooltip({ rootWidth: elementWidth }),

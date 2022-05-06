@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, Typography } from '@mui/material';
+import { IconButton, TextField, Typography } from '@mui/material';
 import HelpIcon from '@mui/icons-material/HelpOutline';
 import { Page } from '../../common';
 import {
@@ -7,6 +7,7 @@ import {
   AccessibleTooltip,
   MuiTooltip,
 } from './components';
+import * as classes from './tooltip.styles';
 
 export const TooltipPage: React.FC = () => {
   return (
@@ -19,10 +20,11 @@ export const TooltipPage: React.FC = () => {
               help_outline
             </i>
           </NonAccessibleTooltip>
-          <NonAccessibleTooltip title="Y para vídeos cortos lemoncode.tv">
-            <span style={{ borderBottom: '1px solid black' }}>
-              Más información
-            </span>
+          <NonAccessibleTooltip title="Formato español: 8 números y una letra">
+            <div className={classes.field}>
+              <label htmlFor="no-accessible-tooltip">DNI</label>
+              <input id="no-accessible-tooltip" type="text" />
+            </div>
           </NonAccessibleTooltip>
         </>
       }
@@ -37,10 +39,11 @@ export const TooltipPage: React.FC = () => {
               help_outline
             </i>
           </AccessibleTooltip>
-          <AccessibleTooltip title="Y para vídeos cortos lemoncode.tv">
-            <span style={{ borderBottom: '1px solid black' }}>
-              Más información
-            </span>
+          <AccessibleTooltip title="Formato español: 8 números y una letra">
+            <div className={classes.field}>
+              <label htmlFor="accessible-tooltip">DNI</label>
+              <input id="accessible-tooltip" type="text" />
+            </div>
           </AccessibleTooltip>
         </>
       }
@@ -51,13 +54,8 @@ export const TooltipPage: React.FC = () => {
               <HelpIcon />
             </IconButton>
           </MuiTooltip>
-          <MuiTooltip title="Y para vídeos cortos lemoncode.tv">
-            <Typography
-              style={{ borderBottom: '1px solid black' }}
-              tabIndex={0}
-            >
-              Más información
-            </Typography>
+          <MuiTooltip title="Formato español: 8 números y una letra">
+            <TextField id="mui-tooltip" label="DNI" />
           </MuiTooltip>
         </>
       }

@@ -32,9 +32,9 @@ export const AccessibleCheckbox: React.FC<Props> = (props) => {
           })}
         >
           {value ? (
-            <img className={classes.image} src={checked} />
+            <img alt="" className={classes.image} src={checked} />
           ) : (
-            <img className={classes.image} src={unchecked} />
+            <img alt="" className={classes.image} src={unchecked} />
           )}
         </span>
       </span>

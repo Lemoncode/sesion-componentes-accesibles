@@ -6,6 +6,7 @@ import * as classes from './accessible-tooltip.styles';
 interface Props {
   title: string;
   id?: string;
+  children: React.ReactNode;
 }
 
 export const AccessibleTooltip: React.FC<Props> = (props) => {

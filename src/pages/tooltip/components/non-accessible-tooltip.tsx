@@ -5,6 +5,7 @@ import * as classes from './non-accessible-tooltip.styles';
 
 interface Props {
   title: string;
+  children: React.ReactNode;
 }
 
 export const NonAccessibleTooltip: React.FC<Props> = (props) => {

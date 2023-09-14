@@ -9,7 +9,11 @@ import {
 } from './components';
 import * as classes from './tooltip.styles';
 
-export const TooltipPage: React.FC = () => {
+interface Props {
+  children: React.ReactNode;
+}
+
+export const TooltipPage: React.FC<Props> = (props) => {
   return (
     <Page
       exampleTitle="tooltips"
